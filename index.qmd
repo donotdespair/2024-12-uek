@@ -1,9 +1,9 @@
 ---
-title: "<span style='color: #ffd700;'>Bayesian Structural Vector Autoregressions</span>" 
-author: "<span style='color: #ffd700;'>by Tomasz Woźniak</span>"
+title: "" 
+author: "<span style='color: #ff68b4;'>by Tomasz Woźniak</span>"
 email: "tomasz.wozniak@unimelb.edu.au"
 title-slide-attributes:
-  data-background-color: "#ff69b4"
+  data-background-color: "#77001b"
 number-sections: false
 format: 
   revealjs: 
@@ -16,66 +16,524 @@ execute:
   echo: true
 ---
 
-##  {background-color="#ff69b4"}
+
+
+```{r palette}
+#| echo: false
+pin  = "#ff68b4"
+dar  = "#77001b"
+grad = grDevices::colorRampPalette(c(dar, pin))(5)
+```
+
+
+##  {background-color="#77001b"}
+
+![](bsvars.org.png){.absolute top=80 right=725 width="400"}
+![](bsvars.png){.absolute top=80 right=325 width="400"}
+![](bsvarSIGNs.png){.absolute top=80 right=-75 width="400"}
+
+
+## <span style='color: #ff68b4;'>Wielowymiarowe bayesowskie dynamiczne modele strukturalne z paczek bsvars i bsvarSIGNs dla R</span> {background-color="#77001b"}
 
 $$ $$
 
-### Structural Vector Autoregressions {style="color:#ffd700;"}
+### structural vector autoregressions {style="color:#ff68b4;"}
 
-### Identification of Structural VARs {style="color:#ffd700;"}
+### predictive analyses using structural VARs {style="color:#ff68b4;"}
 
-### Dynamic Causal Effects {style="color:#ffd700;"}
+### bsvars and bsvarSIGNs features {style="color:#ff68b4;"}
 
-### Bayesian Estimation {style="color:#ffd700;"}
-
-### Monetary Policy Analysis Using the  [bsvars](https://cran.r-project.org/package=bsvars) Package {style="color:#ffd700;"}
+### a small fiscal policy system analysis {style="color:#ff68b4;"}
 
 
 
 
 
-##  {background-color="#ff69b4"}
-
-![](bsvars.png){.absolute top=30 right=275 width="500"}
 
 
-
-## <span style="color: #ffd700;">Materials</span> {background-color="#ff69b4"} 
+## <span style='color: #ff68b4;'>materials</span> {background-color="#77001b"} 
 
 $$ $$
 
-### Lecture Slides [as a Website](https://bsvars.github.io/2024-10-be24-bsvars) {style="color:#ffd700;"}
+### lecture slides [as a website](https://bsvars.org/2024-12-F4SG/) {style="color:#ff68b4;"}
 
-### [R script](https://github.com/bsvars/2024-10-be24-bsvars/blob/main/be24-bsvars.R) for your own Australian monetary policy analysis{style="color:#ffd700;"}
+### GitHub [repo](https://github.com/bsvars/2024-12-F4SG) to reproduce the slides and results{style="color:#ff68b4;"}
 
-### GitHub [repo](https://github.com/bsvars/2024-10-be24-bsvars) to reproduce the slides and results{style="color:#ffd700;"}
+$$ $$
 
-### Tasks{style="color:#ffd700;"}
+### [bsvars.org](https://bsvars.org/) official project website{style="color:#ff68b4;"}
+
+### [bsvars](https://cran.r-project.org/package=bsvars) package on CRAN{style="color:#ff68b4;"}
+
+### [bsvarSIGNs](https://cran.r-project.org/package=bsvarSIGNs) package on CRAN{style="color:#ff68b4;"}
 
 
-## <span style="color: #ffd700;">Structural Vector Autoregressions</span> {background-color="#ff69b4"}
 
-## Structural Vector Autoregressions
+
+
+
+
+
+
+## <span style="color: #ff68b4;">bsvars and bsvarSIGNs features</span> {background-color="#77001b"}
+
+
+
+## bsvars and bsvarSIGNs features 
+
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](bsvars_cran.png){.absolute top=100 width="530"}
+:::
+
+::: {.column width="50%"}
+![](bsvarSIGNs_cran.png){.absolute top=100 width="530"}
+:::
+
+::::
+
+
+
+
+## bsvars and bsvarSIGNs features
+
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+$$ $$
+
+- Bayesian estimation of Structural VARs
+- coherent code structure, workflows, and objects
+- excellent computational speed
+- frontier econometric & numerical techniques
+- written in **C++** using **Rcpp** and **RcppArmadillo**
+- data analysis in **R**
+
+
+
+
+
+## <span style="color: #ff68b4;">bsvars and bsvarSIGNs features</span> {background-color="#77001b"}
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](bsvars.png){width="120"}
+
+- package and data loading
+
+```{r}
+#| eval: false
+library(bsvars)
+data(us_fiscal_lsuw)
+```
+
+- simple model setup
+
+```{r}
+#| eval: false
+spec = specify_bsvar$new(us_fiscal_lsuw)
+```
+
+- simple estimation
+
+```{r}
+#| eval: false
+burn = estimate(spec, S = 1000)
+post = estimate(burn, S = 10000)
+```
+
+:::
+
+::: {.column width="50%"}
+![](bsvarSIGNs.png){width="120"}
+
+- package and data loading
+
+```{r}
+#| eval: false
+library(bsvarSIGNs)
+data(optimism)
+```
+
+- simple model setup
+
+```{r}
+#| eval: false
+spec = specify_bsvarSIGN$new(optimism)
+```
+
+- simple estimation
+
+```{r}
+#| eval: false
+post = estimate(spec, S = 10000)
+```
+
+:::
+
+::::
+
+
+
+
+
+
+## <span style="color: #ff68b4;">bsvars and bsvarSIGNs features</span> {background-color="#77001b"}
+
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](bsvars.png){width="120"}
+
+- structural analyses
+```{r}
+#| eval: false
+irfs = compute_impulse_responses(post , horizon = 12)
+fevd = compute_variance_decompositions(post, horizon = 12)
+hds  = compute_historical_decompositions(post)
+ss   = compute_structural_shocks(post)
+csds = compute_conditional_sd(post)
+sddr = verify_identification(post)
+```
+
+:::
+  
+::: {.column width="50%"}
+![](bsvarSIGNs.png){width="120"}
+
+
+- structural analyses
+```{r}
+#| eval: false
+irfs = compute_impulse_responses(post , horizon = 12)
+fevd = compute_variance_decompositions(post, horizon = 12)
+hds  = compute_historical_decompositions(post)
+ss   = compute_structural_shocks(post)
+csds = compute_conditional_sd(post)
+```
+
+:::
+  
+::::
+
+
+
+
+
+## <span style="color: #ff68b4;">bsvars and bsvarSIGNs features</span> {background-color="#77001b"}
+
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](bsvars.png){width="120"}
+
+- predictive analyses
+
+```{r}
+#| eval: false
+fvs  = compute_fitted_values(post)
+fore = forecast(post, horizon = 12)
+```
+
+
+- plots and summaries
+
+```{r}
+#| eval: false
+plot(irfs)
+summary(irfs)
+```
+
+:::
+  
+::: {.column width="50%"}
+![](bsvarSIGNs.png){width="120"}
+
+- predictive analyses
+
+```{r}
+#| eval: false
+fvs  = compute_fitted_values(post)
+fore = forecast(post, horizon = 12)
+```
+
+- plots and summaries
+
+```{r}
+#| eval: false
+plot(irfs)
+summary(irfs)
+```
+
+:::
+  
+::::
+
+
+
+
+
+
+## <span style="color: #ff68b4;">bsvars and bsvarSIGNs features</span> {background-color="#77001b"}
+
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](bsvars.png){width="120"}
+
+- workflow with the pipe
+
+```{r}
+#| eval: false
+library(bsvars)
+data(us_fiscal_lsuw)
+
+us_fiscal_lsuw |> 
+  specify_bsvar$new() |> 
+  estimate(S = 1000) |> 
+  estimate(S = 10000) -> post
+
+post |> compute_impulse_responses(horizon = 12) |> plot()
+post |> compute_variance_decompositions(horizon = 12) |> plot()
+post |> compute_historical_decompositions() |> plot()
+post |> compute_structural_shocks() |> plot()
+post |> compute_conditional_sd() |> plot()
+post |> forecast(horizon = 12) |> plot()
+post |> verify_identification() |> summary()
+```
+:::
+  
+::: {.column width="50%"}
+![](bsvarSIGNs.png){width="120"}
+
+- workflow with the pipe
+
+```{r}
+#| eval: false
+library(bsvarSIGNs)
+data(optimism)
+
+optimism |> 
+  specify_bsvarSIGN$new() |> 
+  estimate(S = 10000) -> post
+
+post |> compute_impulse_responses(horizon = 12) |> plot()
+post |> compute_variance_decompositions(horizon = 12) |> plot()
+post |> compute_historical_decompositions() |> plot()
+post |> compute_structural_shocks() |> plot()
+post |> compute_conditional_sd() |> plot()
+post |> forecast(horizon = 12) |> plot()
+```
+:::
+  
+::::
+
+
+## <span style="color: #ff68b4;">bsvars and bsvarSIGNs features</span> {background-color="#77001b"}
+
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](bsvars.png){width="120"}
+
+- progress bar
+
+![](bsvars_progress.png){width="500"}
+:::
+  
+::: {.column width="50%"}
+![](bsvarSIGNs.png){width="120"}
+
+- progress bar
+
+![](bsvarSIGNs_progress.png){width="500"}
+:::
+  
+::::
+
+
+
+
+
+## <span style="color: #ff68b4;">structural vector autoregressions</span> {background-color="#77001b"}
+
+## structural vector autoregressions
 
 - go-to models for the analysis of policy effects
 
 ::: incremental
 - facilitate the analysis of **dynamic causal effects** of a well-isolated cause
-- extensively used for: *monetary* and *fiscal* policy, *financial* markets, ...
 - relatively simple to work with data and provide *empirical evidence on the propagation of shocks* through economies and markets
-- provide data-driven stylised facts to be incorporated in theoretical model
-- require identification of the cause of the dynamic effects
+- provide data-driven stylised facts to be incorporated in theoretical models
+- extensively used for: *monetary* and *fiscal* policy, *financial* markets, ...
 - extendible: *featuring many variations in specification*
     -   non-normality
     -   heteroskedasticity
     -   time-varying parameters
-    -   Bayesian
+    -   Bayesian hierarchical modelling
 -   Proposed by [Sims (1980)](https://doi.org/10.2307/1912017)
 :::
 
 ::: footer
-[Bayesian Structural VARs](https://bsvars.github.io/2024-10-be24-bsvars)
+[bsvars.org](https://bsvars.org)
 :::
+
+
+
+## structural vector autoregressions
+
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+### the model.
+\begin{align}
+\text{VAR equation: }&& y_t &= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \mathbf{A}_d x_{t} + \epsilon_t\\[1ex]
+\text{structural equation: }&& \mathbf{B}\epsilon_t &= u_t\\[1ex]
+\text{structural shocks: }&& u_t |Y_{t-1} &\sim N_N\left(\mathbf{0}_N,\text{diag}\left(\boldsymbol\sigma_t^2\right)\right)
+\end{align}
+
+::: {.fragment}
+### notation.
+- $y_t$ - $N$-vector of variables at time $t$
+- $\mathbf{A}_i$ and $\mathbf{B}$ - $N\times N$ matrices of autoregressive and structural coefficients
+- $\epsilon_t$ and $u_t$ - $N$-vectors of error terms and structural shocks at time $t$
+- $\boldsymbol\sigma_t^2$ - $N$-vector structural shock variances
+:::
+
+
+
+
+## SVARs: hierarchical prior distributions
+
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+:::: {.columns}
+::: {.column width="45%"}
+![](bsvars.png){width="120"}
+
+- normal-generalised normal prior for $\mathbf{A}$ and $\mathbf{B}$
+- 3-level local-global equation-specific shrinkage
+- Minnesota prior for non-stationary time series
+- improves model-fit and forecasting precision
+:::
+  
+::: {.column width="5%"}
+:::
+
+::: {.column width="45%"}
+![](bsvarSIGNs.png){width="120"}
+
+- normal-inverse Wishart prior for $\mathbf{A}$ and $\mathbf{\Sigma} = (\mathbf{B}'\mathbf{B})^{-1}$
+- estimated Minnesota prior shrinkage levels
+- Minnesota prior for non-stationary time series
+- improves model-fit and forecasting precision
+:::
+::::
+
+
+
+
+
+
+## SVARs: volatility modelling
+
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+:::: {.columns}
+::: {.column width="65%"}
+![](bsvars.png){width="120"}
+
+- homoskedasticity $\boldsymbol\sigma_{n.t}^2 = 1$
+- stochastic volatility
+- stationary Markov-switching heteroskedasticity
+- non-parametric Markov-switching heteroskedasticity
+
+- joint distribution of structural shocks
+  - normal
+  - finite mixtures of normal distributions
+  - non-parametric mixtures of normal distributions
+  - Student-t
+:::
+  
+::: {.column width="5%"}
+:::
+
+::: {.column width="30%"}
+![](bsvarSIGNs.png){width="120"}
+
+- homoskedastic
+- normal
+:::
+::::
+
+
+
+
+
+
+
+## SVARs: structural identification
+
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+
+:::: {.columns}
+::: {.column width="45%"}
+![](bsvars.png){width="120"}
+
+- exclusion restrictions
+- time-varying volatility
+- non-normality
+:::
+  
+::: {.column width="5%"}
+:::
+
+::: {.column width="45%"}
+![](bsvarSIGNs.png){width="120"}
+
+- sign restrictions
+- exclusion restrictions
+- narrative restrictions
+:::
+::::
+
+
+
+
 
 
 
@@ -85,31 +543,528 @@ $$ $$
 [Bayesian Structural VARs](https://bsvars.github.io/2024-10-be24-bsvars)
 :::
 
-### The model.
+### The VAR errors.
 \begin{align}
-\text{VAR equation: }&& y_t &= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \boldsymbol\mu_0 + \epsilon_t\\[1ex]
-\text{structural equation: }&& \mathbf{B}\epsilon_t &= u_t\\[1ex]
-\text{structural shocks: }&& u_t |Y_{t-1} &\sim N_N\left(\mathbf{0}_N,\mathbf{I}_N\right)
+&&&\\
+\text{structural equation: }&& \epsilon_t &= \mathbf{B}^{-1}u_t = \mathbf{\Theta}_0 u_t\\[1ex]
+\text{error terms: }&& \epsilon_t |Y_{t-1} &\sim N_N\left(\mathbf{0}_N,\Sigma\right)\\[1ex]
+\text{covariance: }&& \mathbf\Sigma &= \mathbf{B}^{-1}\mathbf{B}^{-1\prime} = \Theta_0\Theta_0'
 \end{align}
 
-::: {.fragment}
 ### Notation.
-- $\mathbf{B}$ - $N\times N$ structural matrix of contemporaneous relationships
-- $u_t$ - $N$-vector of structural shocks at time $t$
-  
-  Isolating these shocks allows us to *identify dynamic effects of
-uncorrelated shocks* on variables $y_t$
+- $\mathbf\Sigma$ - $N\times N$ covariance matrix of error terms 
+- $\Theta_0 = \mathbf{B}^{-1}$ - $N\times N$ matrix of **contemporaneous effects**
 
-- $\epsilon_t$ - $N$-vector with error terms at time $t$
-- the rest as in the lecture on [Bayesian VARs](https://bsvars.github.io/2024-10-be24-bsvarSIGNs/#/varp-model)
+
+## Structural Vector Autoregressions
+
+::: footer
+[Bayesian Structural VARs](https://bsvars.github.io/2024-10-be24-bsvars)
+:::
+
+Plug the *VAR equation* into the *structural equation* to obtain:
+
+\begin{align}
+\mathbf{B}y_t &= \mathbf{B}\mathbf{A}_1 y_{t-1} + \dots + \mathbf{B}\mathbf{A}_p y_{t-p} + \mathbf{B}\boldsymbol\mu_0 + u_t\\[1ex]
+&\\
+\end{align}
+
+### Contemporaneous relationships.
+
+Let $N=2$
+
+\begin{align}
+\mathbf{B}y_t &= \begin{bmatrix}B_{11}&B_{12}\\B_{21}&B_{22}\end{bmatrix}\begin{bmatrix}y_{1t}\\y_{2t}\end{bmatrix}
+\end{align}
+
+
+
+
+
+## Structural Vector Autoregressions
+
+::: footer
+[Bayesian Structural VARs](https://bsvars.github.io/2024-10-be24-bsvars)
+:::
+
+Plug the *structural equation* for $\epsilon_t$ into the *VAR equation* to obtain:
+
+\begin{align}
+y_t &= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \boldsymbol\mu_0 + \mathbf{B}^{-1}u_t\\[1ex]
+y_t &= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \boldsymbol\mu_0 + \mathbf{\Theta}_0 u_t
+\end{align}
+
+### Contemporaneous effects.
+
+Let $N=2$
+
+\begin{align}
+\begin{bmatrix}y_{1t}\\y_{2t}\end{bmatrix} &= \dots +
+\begin{bmatrix}\Theta_{11}&\Theta_{12}\\\Theta_{21}&\Theta_{22}\end{bmatrix}\begin{bmatrix}u_{1t}\\ u_{2t}\end{bmatrix}
+\end{align}
+
+
+
+
+## <span style="color: #ff68b4;">Identification of Structural VARs </span>  {background-color="#77001b"}
+
+## Identification of SVARs (Simplified)
+
+::: footer
+[Bayesian Structural VARs](https://bsvars.github.io/2024-10-be24-bsvars)
+:::
+
+### Covariance and structural relationships.
+
+\begin{align}
+&\\
+\mathbf\Sigma &= \mathbf{B}^{-1}\mathbf{B}^{-1\prime}\\[1ex]
+\end{align}
+
+- $\mathbf\Sigma$ can be estimated using data easily
+
+::: incremental
+- The relationship presents a system of equations to be solved for $\mathbf{B}$
+- $\mathbf\Sigma$ is a *symmetric* $N\times N$ matrix
+- $\mathbf\Sigma$ has $N(N+1)/2$ unique elements given equations
+- $\mathbf{B}$ is an $N\times N$ matrix with $N^2$ unique elements to estimate
+- We cannot estimate all elements of $\mathbf{B}$ using $N(N+1)/2$ equations
+- $\mathbf{B}$ is <text style="color:#77001b;">**not identified**</text>
 :::
 
 
 
+## Identification of SVARs (Simplified)
+
+::: footer
+[Bayesian Structural VARs](https://bsvars.github.io/2024-10-be24-bsvars)
+:::
+
+### Exclusion restrictions.
+
+\begin{align}
+&\\
+\mathbf\Sigma &= \mathbf{B}^{-1}\mathbf{B}^{-1\prime}\\[1ex]
+\end{align}
+
+### Identification.
+
+- Only $N(N+1)/2$ elements in $\mathbf{B}$ can be estimated
+- Impose $N(N-1)/2$ restrictions on $\mathbf{B}$ to solve the equation
+- This identifies the rows of $\mathbf{B}$ (and the columns of $\mathbf\Theta_0$) up to a sign
+- Change the sign of any number of $\mathbf{B}$ rows and $\mathbf\Sigma$ will not change
+- Often $\mathbf{B}$ is made lower-triangular
 
 
 
-##  {background-color="#ff69b4"}
+## Identification of SVARs (Simplified)
 
-![](social.png){.absolute top=30 right=200 width="800"}
+::: footer
+[Bayesian Structural VARs](https://bsvars.github.io/2024-10-be24-bsvars)
+:::
+
+### Exclusion restrictions.
+
+Let $N=2$ 
+
+\begin{align}
+\begin{bmatrix}\sigma_1^2&\sigma_{12}\\ \sigma_{12}&\sigma_2^2\end{bmatrix} &\qquad
+\begin{bmatrix}B_{11}&B_{12}\\ B_{21}&B_{22}\end{bmatrix}\\[1ex]
+\end{align}
+
+- 3 unique elements in $\mathbf\Sigma$ - 3 equations in the system
+- 4 elements in $\mathbf{B}$ cannot be estimated
+
+### Identification.
+
+\begin{align}
+\begin{bmatrix}\sigma_1^2&\sigma_{12}\\ \sigma_{12}&\sigma_2^2\end{bmatrix} &\qquad
+\begin{bmatrix}B_{11}& 0\\ B_{21}&B_{22}\end{bmatrix}\\[1ex]
+\end{align}
+
+- 3 equations identify 3 elements in $\mathbf{B}$
+
+
+
+
+
+
+
+
+
+## Identification of SVARs (Simplified)
+
+### Identification through Heteroskedasticity.
+
+Suppose that: 
+
+- there are two covariances, $\mathbf\Sigma_1$ and $\mathbf\Sigma_2$, associated with the sample
+- matrix $\mathbf{B}_0$ does not change over time
+- structural shocks are heteroskedastic with covariances $\text{diag}\left(\boldsymbol\sigma_1^2\right)$ and $\text{diag}\left(\boldsymbol\sigma_2^2\right)$
+
+\begin{align}
+\mathbf\Sigma_1 &= \mathbf{B}_0^{-1}\text{diag}\left(\boldsymbol\sigma_1^2\right)\mathbf{B}_0^{-1\prime}\\[1ex]
+\mathbf\Sigma_2 &= \mathbf{B}_0^{-1}\text{diag}\left(\boldsymbol\sigma_2^2\right)\mathbf{B}_0^{-1\prime}
+\end{align}
+
+
+
+## Identification of SVARs (Simplified)
+
+### Identification through Heteroskedasticity.
+\begin{align}
+\mathbf\Sigma_1 &= \mathbf{B}_0^{-1}\text{diag}\left(\boldsymbol\sigma_1^2\right)\mathbf{B}_0^{-1\prime}\\[1ex]
+\mathbf\Sigma_2 &= \mathbf{B}_0^{-1}\text{diag}\left(\boldsymbol\sigma_2^2\right)\mathbf{B}_0^{-1\prime}
+\end{align}
+
+
+### Identification.
+
+- $\mathbf\Sigma_1$ and $\mathbf\Sigma_2$ contain $N^2+N$ unique elements
+- All $N^2$ elements of $\mathbf{B}_0$ can be estimated
+- Both $N$-vectors $\boldsymbol\sigma_1^2$ and $\boldsymbol\sigma_2^2$ can be estimated due to additional restriction: $E\left[\text{diag}\left(\boldsymbol\sigma_i^2\right)\right] = \mathbf{I}_N$
+
+
+## Identification of SVARs (Simplified)
+
+The setup can be generalised to conditional heteroskedasticity of structural shocks
+
+\begin{align}
+u_t |Y_{t-1} &\sim N_N\left(\mathbf{0}_N, \text{diag}\left(\boldsymbol\sigma_t^2\right)\right)\\[1ex]
+\mathbf\Sigma_t &= \mathbf{B}_0^{-1}\text{diag}\left(\boldsymbol\sigma_t^2\right)\mathbf{B}_0^{-1\prime}
+\end{align}
+
+### Identification.
+
+- Matrix $\mathbf{B}_0$ is identified up to its rows' sign change and equations' reordering
+- shocks are identified if changes in their conditional variances are non-proportional 
+- Structural shocks' conditional variances $\boldsymbol\sigma_t^2$ can be estimated
+
+### Heteroskedasticity Modeling.
+
+Choose any (conditional) variance model for $\boldsymbol\sigma_t^2$ that fits the data well.
+
+
+
+## <span style="color: #ff68b4;">Identification of SVARs (Simplified)</span> {background-color="#77001b"}
+
+```{r Alternative_Identification}
+#| echo: false
+#| cache: true
+
+set.seed(1)
+
+ax_lim = 3.6
+T = 500
+df = 3
+B = matrix(c(1,-1,1,1), 2, 2)
+Bit = t(solve(B))
+en = matrix(rnorm(2 * T), T, 2)
+et = sqrt((df - 2) / df) * matrix(rt(2 * T, df = df), T, 2)
+
+yn = en %*% Bit
+yt = et %*% Bit
+
+par(
+  bg = "#77001b",
+  mfrow = c(1,2),
+  col = scales::alpha("#ff68b4", .5),
+  col.main = "#ff68b4",
+  col.lab = "#ff68b4"
+)
+plot(
+  x = yn[,1], y = yn[,2], 
+  ylim = c(-ax_lim, ax_lim), 
+  xlim = c(-ax_lim, ax_lim),
+  bty="n", pch = 16,
+  ylab = "y", xlab = "x",
+  axes = FALSE,
+  main = "homoskedastic and normal"
+)
+abline(a = 0, b = 1, col = "#ff68b4")
+abline(a = 0, b = -1, col = "#ff68b4")
+
+plot(
+  x = yt[,1], y = yt[,2], 
+  ylim = c(-ax_lim, ax_lim), 
+  xlim = c(-ax_lim, ax_lim),
+  bty="n", pch = 16,
+  ylab = "", xlab = "x",
+  axes = FALSE,
+  main = "heteroskedastic or non-normal"
+)
+abline(a = 0, b = 1, col = "#ff68b4")
+abline(a = 0, b = -1, col = "#ff68b4")
+
+```
+
+
+
+
+
+
+
+
+
+
+## Identification of SVARs (Simplified)
+
+::: footer
+[Bayesian Structural VARs](https://bsvars.github.io/2024-10-be24-bsvars)
+:::
+
+### Structural equation.
+
+\begin{align}
+\text{contemporaneous relationships:}&&\mathbf{Q}\mathbf{B}\epsilon_t &= \mathbf{Q}u_t\\[1ex]
+\text{contemporaneous effects:}&&\epsilon_t &= \mathbf{\Theta}_0\mathbf{Q}'\mathbf{Q} u_t\\[1ex]
+\end{align}
+
+### Identification up to rotation.
+
+\begin{align}
+\mathbf\Sigma &= \mathbf{B}^{-1}\mathbf{Q}'\mathbf{Q}\mathbf{B}^{-1\prime} = \mathbf{\Theta}_0\mathbf{Q}'\mathbf{Q}\mathbf{\Theta}_0^{\prime}\\[1ex]
+\mathbf{Q}'\mathbf{Q} &= \mathbf{I}_N\\[1ex]
+\end{align}
+
++ likelihood is invariant to rotation
++ identification of the system narrows down the set of $\mathbf{Q}$
++ exclusion restrictions make $\mathbf{Q}$ diagonal with $\pm1$ diagonal elements
+
+
+## Identification of SVARs (Simplified)
+
+::: footer
+[Bayesian Structural VARs](https://bsvars.github.io/2024-10-be24-bsvars)
+:::
+
+### Sign Restrictions.
+
+\begin{align}
+\text{contemporaneous relationships:}&&\tilde{\mathbf{B}}\epsilon_t &= \tilde{u}_t\\[1ex]
+\text{contemporaneous effects:}&&\epsilon_t &= \tilde{\mathbf{\Theta}}_0\tilde{u}_t\\[1ex]
+\end{align}
+
++ restrict the sign of the elements of $\tilde{\mathbf{B}}$ or/and $\tilde{\mathbf{\Theta}}_0$
++ the model is set identified: it is identified up to a set of matrices $\mathbf{Q}$ that satisfy the sign restrictions
++ the estimation task is to represent the identified set
+
+### sign and zero restrictions.
+
++ restrict the sign of the elements of $\tilde{\mathbf{B}}$ or/and $\tilde{\mathbf{\Theta}}_0$ or set some of them to zero
++ further narrows down the identified set
+
+
+
+
+## Identification of SVARs (Simplified)
+
+::: footer
+[Bayesian Structural VARs](https://bsvars.github.io/2024-10-be24-bsvars)
+:::
+
+### Narrative Restrictions.
+
++ restrict the sign or relative contribution of $u_t$ or $\tilde{u}_t$
++ restrictions based on narrative evidence, economic theory, and scientific consensus
++ requires adjustment of the estimation algorithms
++ further narrows down the identified set
+
+### A new feature.
+
++ impose sign, zero, and narrative restrictions in one model using the **bsvarSIGNs** package
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## bsvars volatility and distribution modelling
+
+
+
+
+
+
+
+
+
+## Non-centred Stochastic Volatility
+
+![](bsvars.png){.absolute top=-10 right=10 width="120"}
+
+\begin{align}
+&\\
+\text{conditional variance:}&&\sigma_{n.t}^2 &= \exp\left\{\omega_n h_{n.t}\right\}\\
+\text{log-volatility:}&&h_{n.t} &= \rho_n h_{n.t-1} + v_{n.t}\\ 
+\text{volatility innovation:}&&v_{n.t}&\sim N\left(0,1\right)\\
+\end{align}
+
+- excellent volatility forecasting performance
+- standardization around $\sigma_{n.t}^2 = 1$
+- `verify_identification()` by checking $H_0:\omega_n = 0$
+
+
+
+
+
+
+
+## Centred Stochastic Volatility
+
+![](bsvars.png){.absolute top=-10 right=10 width="120"}
+
+\begin{align}
+&\\
+\text{conditional variance:}&&\sigma_{n.t}^2 &= \exp\left\{ \tilde{h}_{n.t}\right\}\\
+\text{log-volatility:}&&\tilde{h}_{n.t} &= \rho_n \tilde{h}_{n.t-1} + \tilde{v}_{n.t}\\ 
+\text{volatility innovation:}&&\tilde{v}_{n.t}&\sim N\left(0,\omega_n^2\right)\\
+\end{align}
+
+- potential for improved forecasting performance
+
+
+
+
+## Stochastic Volatility: conditional variances
+
+```{r plot_cv_prior}
+#| echo: false
+p_svnc_log      = function(x,t){
+  # log-variances non-centered SV
+  (pi*sqrt(t*sigma.omega.sq))^(-1)*besselK(abs(x)/sqrt(t*sigma.omega.sq),0)
+}
+p_sv_log        = function(x,t){
+  # log-variances SV
+  gamma((sigma.nu+1)/2)/gamma((sigma.nu)/2)*pi^(-1/2)*((t+1)*sigma.s)^(-1/2)*(1+((t+1)*sigma.s)^(-1)*x^(2))^(-(sigma.nu+1)/2)
+}
+p_svnc          = function(x,t){
+  # variances non-centered SV
+  (pi*sqrt(t*sigma.omega.sq)*x)^(-1)*besselK(abs(log(x))/sqrt(t*sigma.omega.sq),0)
+}
+p_sv            = function(x,t){
+  # variances SV
+  gamma((sigma.nu+1)/2)/gamma((sigma.nu)/2)*pi^(-1/2)*sigma.s^(sigma.nu/2)*(t+1)^(-1/2)*(x)^(-1)*(sigma.s+(t+1)^(-1)*(log(x))^(2))^(-(sigma.nu+1)/2)
+}
+
+T               = 5
+zlimabrar       = 2.5
+grid            = seq(from=-2.5, to=2.5, by=0.00001)
+grid_var        = seq(from=0.00000001, to=3.2, by=0.00001)
+
+s               = 0.1
+sigma.omega.sq  = s   # conditional variance hyper-parameter
+sigma.s         = s   # log-conditional variance hyper-parameter
+sigma.nu        = 3   # log-conditional variance hyper-parameter
+
+plot(
+  x = grid_var, 
+  y = p_svnc(grid_var,T), 
+  type = "l", 
+  main = "", 
+  col = pin, 
+  lwd = 2,
+  xlim = c(0,3), 
+  ylim = c(0,zlimabrar), 
+  xlab = "conditional variance", 
+  ylab = "density", 
+  frame.plot = FALSE, 
+  axes = FALSE
+)
+lines(
+  x = grid_var, 
+  y = p_sv(grid_var, T), 
+  col = dar,
+  lwd = 2
+)
+legend(
+  "topright",
+  legend = c("non-centered", "centered"),
+  col = c(pin, dar),
+  lwd = 2,
+  bty = "n"
+)
+axis(2, c(0,1,2), c(0,1,2))
+axis(1, c(0,1,2,3), c(0,1,2,3))
+abline(h = 0, lwd = 0.5)
+```
+
+
+
+
+
+
+
+## Markov-switching heteroskedasticity.
+
+![](bsvars.png){.absolute top=-10 right=10 width="120"}
+
+\begin{align}
+&\\
+\text{structural shocks:}&&\mathbf{u}_t\mid s_t \sim N\left( \mathbf{0}_N, \text{diag}\left(\boldsymbol{\sigma}_{s_t}^2\right) \right)\\
+\text{prior:}&& M^{-1}\left(\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2\right) \sim Dirichlet(\underline{a}\boldsymbol\imath')\\
+\text{latent process:}&& s_t\sim \text{Markov}(\mathbf{P},\boldsymbol\pi_0)
+\end{align}
+
+- modelling Markov-switching heteroskedasticity
+- provides identification information
+- potential gains in forecasting precision
+- `verify_identification()`  by checking $H_0:\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2 = 1$
+
+
+
+
+
+
+
+
+
+## mixture models.
+
+![](bsvars.png){.absolute top=-10 right=10 width="120"}
+
+\begin{align}
+&\\
+\text{structural shocks:}&&\mathbf{u}_t\mid s_t \sim N\left( \mathbf{0}_N, \text{diag}\left(\boldsymbol{\sigma}_{s_t}^2\right) \right)\\
+\text{prior:}&& M^{-1}\left(\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2\right) \sim Dirichlet(\underline{a}\boldsymbol\imath')\\
+\text{latent process:}&& Pr[s_t]=\boldsymbol\pi_0
+\end{align}
+
+- mixture models
+- non-normality provides identification information
+- `verify_identification()`  by checking $H_0:\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2 = 1$
+
+
+
+
+## Student-t shocks.
+
+![](bsvars.png){.absolute top=-10 right=10 width="120"}
+
+
+\begin{align}
+&&&\\
+\text{structural shocks:}&&\mathbf{u}_t\mid\mathbf{x}_t &\sim t\left( \mathbf{0}_N, \mathbf{I}_N, \nu \right)
+\end{align}
+
+- $\nu$ - the degrees of freedom parameter is estimated
+- fat tails provide identification information
+- potential gains in forecasting precision
+- robustness to outliers
+- `verify_identification()`  by checking $H_0:\nu \rightarrow\infty$
+
+
 
